@@ -1,6 +1,6 @@
 # vue-ts-demo
 
-> A Vue.js project
+> A Vue.js project use typescript
 
 ## Build Setup
 

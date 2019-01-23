@@ -1,7 +1,11 @@
 <template>
   <div>
-    {{ count }}
-    <button @click="setCount()" type="button">+</button>
+    <div v-for="post in postList" :key="post._id">
+      <div class="title">
+        <!-- <a :href="'detail/'+post._id">{{post.title}}</a>       -->
+        <a @click="goDetail(post._id)">{{post.title}}</a>    
+      </div>
+    </div>
   </div>
 </template>
 
@@ -13,15 +17,24 @@ import { Action, State, Getter } from 'vuex-class';
 @Component
 export default class Main extends Vue {
   @State count: Number;
+  @State postList: StoreState.post[];
   @Action incrementCount: () => void;
+  @Action getPostList: () => void;
+
   // @Getter getCount: Number;
 
   // get isCount(): Number{
   //   return this.count;
   // }
-
+  mounted(){
+    this.getPostList();
+  }
   setCount(): void{
     this.incrementCount();
+  }
+  
+  goDetail(id: string): void {
+    this.$router.push({ name: 'detail', params: { pid: id } });
   }
 }
 
@@ -46,7 +59,12 @@ export default class Main extends Vue {
 // }
 
 
-<style>
+<style lang="sass" scoped>
+  .title 
+    font-size: 18px;
+    line-height: 1.5;
+    font-weight: bold; 
+    text-align: left !important;
 
 </style>
 
